@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 6b37211fe361bc142bd21d15d1ae179a
-timeCreated: 1527347051
+guid: 35aed4fe0dc968a4493d642214c0d13c
+timeCreated: 1528277360
 licenseType: Free
 TrueTypeFontImporter:
   externalObjects: {}
@@ -10,10 +10,13 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: Tajawal
+  fontName: Jura
   fontNames:
-  - Tajawal
-  fallbackFontReferences: []
+  - Jura
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 55cbf6257a577e749b2e461b2cb334dc, type: 3}
+  - {fileID: 12800000, guid: d9062306d72d9864788094e682320040, type: 3}
+  - {fileID: 12800000, guid: b1defe1b361ef6f43bab2ed8603fe7f7, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1

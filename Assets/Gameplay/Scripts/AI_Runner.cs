@@ -57,7 +57,7 @@ public class AI_Runner : MonoBehaviour
             //Rotate the enemy towards the player.
             Vector3 dirToPlayer = (target.position - transform.position).normalized;
             Quaternion rotToPlayer = Quaternion.LookRotation(new Vector3(dirToPlayer.x, 0, dirToPlayer.z));
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotToPlayer, Time.deltaTime / 0.2f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotToPlayer, Time.deltaTime / 0.12f);
 
             //Check if the enemy can attack.
             if (Time.time > attackTimer) StartCoroutine(Slash());
@@ -90,12 +90,16 @@ public class AI_Runner : MonoBehaviour
         //Sync the damage to the animation.
         yield return new WaitForSeconds(0.5f);
 
-        //Calculate the distance and angle to the target.
-        float distanceToTarget = Vector3.Distance(transform.position, target.position);
-        float angleToTarget = Vector3.Angle(transform.forward, (target.position - transform.position).normalized);
+        //Check if the enemy is still alive to finish the slashing attack.
+        if (!isDead)
+        {
+            //Calculate the distance and angle to the target.
+            float distanceToTarget = Vector3.Distance(transform.position, target.position);
+            float angleToTarget = Vector3.Angle(transform.forward, (target.position - transform.position).normalized);
 
-        //Apply damage on the player if in range and view.
-        if (distanceToTarget < slashDistance && angleToTarget < 60f) PlayerManager.Instance.ApplyDamage(1, transform.position);
+            //Apply damage on the player if in range and view.
+            if (distanceToTarget < slashDistance && angleToTarget < 60f) PlayerManager.Instance.ApplyDamage(1, transform.position);
+        }
     }
 
     private IEnumerator InitializeEnemy()

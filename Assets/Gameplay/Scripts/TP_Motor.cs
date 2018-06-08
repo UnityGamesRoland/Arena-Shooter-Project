@@ -19,6 +19,7 @@ public class TP_Motor : MonoBehaviour
 
     private AudioSource source;
     private PlayerManager player;
+    private PauseManager pause;
     private TP_Animations anim;
     private UI_SceneManager sceneManager;
 
@@ -37,6 +38,7 @@ public class TP_Motor : MonoBehaviour
         //Initialization.
         player = PlayerManager.Instance;
         anim = TP_Animations.Instance;
+        pause = PauseManager.Instance;
         sceneManager = UI_SceneManager.Instance;
 
         //Create a virtual plane for the rotation.
@@ -54,20 +56,24 @@ public class TP_Motor : MonoBehaviour
         //Check if the scene has been initialized.
         if (!sceneManager.isInitialized) return;
 
-        //Get the input direction and normalize it.
-        Vector2 inputDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+        //Check if the game is paused.
+        if(!pause.isPaused)
+        {
+            //Get the input direction and normalize it.
+            Vector2 inputDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
 
-        //Stop the movement if the player is dead.
-        if (player.isDead) inputDir = Vector2.zero;
+            //Stop the movement if the player is dead.
+            if (player.isDead) inputDir = Vector2.zero;
 
-        //TEMPORARY FEATURE... Dash with shift key.
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !player.isDead) BeginDash(inputDir, 0.06f, 1f);
+            //TEMPORARY FEATURE... Dash with shift key.
+            if (Input.GetKeyDown(KeyCode.LeftShift) && !player.isDead) BeginDash(inputDir, 0.06f, 1f);
 
-        //Move the player in the input direction if we are not dashing.
-        if(!states.isDashing) Move(inputDir, moveSpeed, false);
+            //Move the player in the input direction if we are not dashing.
+            if (!states.isDashing) Move(inputDir, moveSpeed, false);
 
-        //Rotate the player to mouse point.
-        RotateBody();
+            //Rotate the player to mouse point.
+            RotateBody();
+        }
     }
 
     private void Move(Vector2 moveDir, float moveSpeed, bool rawVelocity)
@@ -180,7 +186,7 @@ public class TP_Motor : MonoBehaviour
     private void OnGUI()
     {
         //Check if the crosshair should be displayed.
-        if (!sceneManager.isInitialized || sceneManager.isLoading) return;
+        if (!sceneManager.isInitialized || sceneManager.isLoading || pause.isPaused) return;
 
         //Calculate the crosshair's position.
         Vector2 screenPosition = Camera.main.WorldToScreenPoint(data.mousePoint);

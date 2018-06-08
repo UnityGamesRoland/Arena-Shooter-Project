@@ -6,7 +6,7 @@ public class ArenaManager : MonoBehaviour
     public AnimationCurve levelEndGlowIntensity;
     public Material glowMaterial;
 
-    #region Singleton
+    #region Singleton And References
     public static ArenaManager Instance { get; private set; }
     private void Awake()
     {
@@ -18,11 +18,15 @@ public class ArenaManager : MonoBehaviour
 
     public void CompleteLevel()
     {
+        //End the level.
         StartCoroutine(EndLevel());
     }
 
     private IEnumerator EndLevel()
     {
+        //Make the player invincible after the level is finished.
+        PlayerManager.Instance.ApplyInvincibility(60);
+
         //Update the arena LED material and tint the background.
         glowMaterial.SetColor("_Color", Color.green);
         Camera.main.backgroundColor = new Color32(43, 53, 30, 0);

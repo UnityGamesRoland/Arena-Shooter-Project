@@ -52,14 +52,16 @@ public class UI_SceneManager : MonoBehaviour
         StartCoroutine(LoadLevelAsync(targetLevel));
     }
 
+    public void QuitGame()
+    {
+        //Quit the game. Should only be called from the main menu.
+        Application.Quit();
+    }
+
     private IEnumerator InitializeLevel()
     {
         //Show the loading screen in order to let it fade out.
         loadingScreen.alpha = 1;
-
-        //Lock the cursor.
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = false;
 
         //Let the Awake() and Start() to complete processing.
         yield return new WaitForSeconds(1);
@@ -88,7 +90,7 @@ public class UI_SceneManager : MonoBehaviour
         //Enable the loading screen.
         while(progress < 1)
         {
-            progress += Time.deltaTime / 0.4f;
+            progress += Time.unscaledDeltaTime / 0.4f;
             loadingScreen.alpha = Mathf.Lerp(0, 1, progress);
             yield return null;
         }

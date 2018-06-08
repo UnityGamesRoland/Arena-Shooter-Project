@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: b4544932217898e4e82fc72197663fb5
-timeCreated: 1527347051
+guid: bdc401b72cc856849b100b0490d8dfb9
+timeCreated: 1528277211
 licenseType: Free
 TrueTypeFontImporter:
   externalObjects: {}
@@ -10,10 +10,11 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: Tajawal Light
+  fontName: Rubik
   fontNames:
-  - Tajawal Light
-  fallbackFontReferences: []
+  - Rubik
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 369bdca7621e8dd4f86b14a2e5cef82b, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1

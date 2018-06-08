@@ -13,6 +13,7 @@ public class WeaponManager : MonoBehaviour
     private ParticleSystem muzzleFlash;
     private AudioSource source;
     private PlayerManager player;
+    private PauseManager pause;
 
     #region Singleton and References
     public static WeaponManager Instance { get; private set; }
@@ -28,12 +29,13 @@ public class WeaponManager : MonoBehaviour
     {
         //Initialization.
         player = PlayerManager.Instance;
+        pause = PauseManager.Instance;
     }
 
     private void Update()
     {
         //Check if the player is alive.
-        if (player.isDead) return;
+        if (player.isDead || pause.isPaused) return;
 
         //Shoot while holding LMB.
         if(Input.GetMouseButton(0) && Time.time > shootTimer && Time.time > player.actionTimer) Shoot();
