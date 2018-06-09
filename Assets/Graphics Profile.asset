@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d925a8473073fdc4d8701afe06b6f02e, type: 3}
+  m_Name: Graphics Profile
+  m_EditorClassIdentifier: 
+  textureQuality: 1
+  resolutionScale: 5
+  multiSampling: 3
+  vSync: 0
+  textureQualityStrings:
+  - Low
+  - High
+  resolutionScaleStrings:
+  - 50%
+  - 60%
+  - 70%
+  - 80%
+  - 90%
+  - 100%
+  multiSamplingStrings:
+  - Disabled
+  - 2x
+  - 4x
+  - 8x
+  vSyncStrings:
+  - Disabled
+  - Enabled
+  textureQualityValues: 0100000000000000
+  resolutionScaleValues:
+  - 0.5
+  - 0.6
+  - 0.7
+  - 0.8
+  - 0.9
+  - 1
+  multiSamplingValues: 00000000020000000400000008000000
+  vSyncValues: 0000000001000000

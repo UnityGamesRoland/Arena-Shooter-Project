@@ -57,7 +57,7 @@ public class AI_Runner : MonoBehaviour
             //Rotate the enemy towards the player.
             Vector3 dirToPlayer = (target.position - transform.position).normalized;
             Quaternion rotToPlayer = Quaternion.LookRotation(new Vector3(dirToPlayer.x, 0, dirToPlayer.z));
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotToPlayer, Time.deltaTime / 0.12f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotToPlayer, Time.deltaTime / 0.07f);
 
             //Check if the enemy can attack.
             if (Time.time > attackTimer) StartCoroutine(Slash());

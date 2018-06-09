@@ -5,7 +5,9 @@ using System.Collections;
 public class UI_SceneManager : MonoBehaviour
 {
     public CanvasGroup loadingScreen;
-    public bool isLastLevel;
+    
+    public enum SceneLoaderType {loopLevels, reloadCurrent}
+    public SceneLoaderType loadType;
 
     [HideInInspector] public bool isLoading;
     [HideInInspector] public bool isInitialized;
@@ -36,8 +38,8 @@ public class UI_SceneManager : MonoBehaviour
         //Get the target level index.
         int targetLevel = SceneManager.GetActiveScene().buildIndex + 1;
 
-        //TEMPORARY FEATURE... Load the first level if we completed the last one.
-        if (isLastLevel) targetLevel = 0;
+        //TEMPORARY FEATURE... Load the first level or reload the current one based on the selected loading type.
+        if (targetLevel > SceneManager.sceneCountInBuildSettings - 1) targetLevel = (loadType == SceneLoaderType.loopLevels) ? 0 : SceneManager.GetActiveScene().buildIndex;
 
         //Start the loading process.
         StartCoroutine(LoadLevelAsync(targetLevel));
