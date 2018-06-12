@@ -75,7 +75,7 @@ public class UI_SceneManager : MonoBehaviour
         //Enable the loading screen.
         while (progress < 1)
         {
-            progress += Time.deltaTime / 0.4f;
+            progress += Time.unscaledDeltaTime / 0.4f;
             loadingScreen.alpha = Mathf.Lerp(1, 0, progress);
             yield return null;
         }

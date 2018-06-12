@@ -9,12 +9,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d925a8473073fdc4d8701afe06b6f02e, type: 3}
-  m_Name: Graphics Profile
+  m_Name: Settings Profile
   m_EditorClassIdentifier: 
   textureQuality: 1
   resolutionScale: 5
   multiSampling: 3
+  antiAliasing: 2
   vSync: 0
+  masterVolume: 0.19999999
+  musicVolume: 1
+  gameplayVolume: 1
   textureQualityStrings:
   - Low
   - High
@@ -30,6 +34,11 @@ MonoBehaviour:
   - 2x
   - 4x
   - 8x
+  antiAliasingStrings:
+  - Disabled
+  - Low
+  - Medium
+  - High
   vSyncStrings:
   - Disabled
   - Enabled

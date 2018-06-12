@@ -14,16 +14,17 @@ public class UI_Element : MonoBehaviour, IPointerEnterHandler, IPointerClickHand
 	public UnityEvent ClickEvent;
 	public UnityEvent PositiveEvent;
 	public UnityEvent NegativeEvent;
+    public UnityEvent KeybinderEvent;
 
-	//Callback function for the mouse entering the UI element.
-	public void OnPointerEnter(PointerEventData eventData)
+    //Callback function for the mouse entering the UI element.
+    public void OnPointerEnter(PointerEventData eventData)
 	{
-		UI_Manager.Instance.SetSelectedElement(this);
+        if (!UI_Manager.Instance.isKeybinding) UI_Manager.Instance.SetSelectedElement(this);
 	}
 
 	//Callback function for the mouse clicking the UI element.
 	public void OnPointerClick(PointerEventData eventData)
 	{
-		ClickEvent.Invoke();
+        ClickEvent.Invoke();
 	}
 }

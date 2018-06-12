@@ -16,12 +16,16 @@ public class UI_Manager : MonoBehaviour
 	public UI_Layer[] layers;
 
     [HideInInspector] public bool interactable;
-	[HideInInspector] public UI_Layer selectedLayer;
+    [HideInInspector] public bool isKeybinding;
+    [HideInInspector] public UI_Layer selectedLayer;
 	[HideInInspector] public UI_Element selectedElement;
 
-	private PauseManager pause;
+    private float executionInputHoldTimer;
+    private float executionInputTimer;
+    private bool controlsGamePause = false;
+
+    private PauseManager pause;
     private UI_SceneManager sceneManager;
-	private bool controlsGamePause = false;
 
 	#region Singleton And References
 	public static UI_Manager Instance {get; private set;}
@@ -47,10 +51,25 @@ public class UI_Manager : MonoBehaviour
         //Return if we are initializing or loading a level.
         if (!sceneManager.isInitialized || sceneManager.isLoading) return;
 
-		//First check for navigation input, then execution input.
-		GetNavigationInput();
-		GetExecutionInput();
-	}
+        //Check if the keybinder mode is active.
+        if(isKeybinding)
+        {
+            //Make sure that the selected element is a keybinder element.
+            if(selectedElement.elementType != UI_Element_Type.keybinderElement)
+            {
+                isKeybinding = false;
+                return;
+            }
+
+            //Execute the keybinder event on the selected element.
+            selectedElement.KeybinderEvent.Invoke();
+            return;
+        }
+
+        //First check for navigation input, then execution input.
+        GetNavigationInput();
+        GetExecutionInput();
+    }
 
 	private void GetNavigationInput()
 	{
@@ -72,22 +91,74 @@ public class UI_Manager : MonoBehaviour
 		//Check if we can interact with the UI.
 		if(!interactable) return;
 
-		//Check if the selected UI is a single channel one.
 		if(selectedElement.elementType == UI_Element_Type.buttonElement)
 		{
 			//Execute UI element: Single Channel Click Event.
 			if(Input.GetKeyDown(KeyCode.Return)) selectedElement.ClickEvent.Invoke();
 		}
 
-		else
-		{
+		else if (selectedElement.elementType == UI_Element_Type.selectorElement)
+        {
 			//Execute UI element: Negative (Left) Direction Event.
 			if(Input.GetKeyDown(KeyCode.LeftArrow)) selectedElement.NegativeEvent.Invoke();
 
 			//Execute UI element: Positive (Right) Direction Event.
 			if(Input.GetKeyDown(KeyCode.RightArrow)) selectedElement.PositiveEvent.Invoke();
 		}
-	}
+
+        else if (selectedElement.elementType == UI_Element_Type.sliderElement)
+        {
+            //Check if the execution input keys are released.
+            if(Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow))
+            {
+                //Reset the hold timer and wait for the next frame.
+                executionInputHoldTimer = 0f;
+                return;
+            }
+
+            //Execute UI element: Negative (Left) Direction Event.
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                //Execute the event once and start counting the hold timer.
+                if (executionInputHoldTimer == 0) selectedElement.NegativeEvent.Invoke();
+                executionInputHoldTimer += Time.unscaledDeltaTime;
+
+                //Switch to continuous execution mode.
+                if (executionInputHoldTimer > 0.3f)
+                {
+                    if(Time.realtimeSinceStartup > executionInputTimer)
+                    {
+                        executionInputTimer = Time.realtimeSinceStartup + 0.03f;
+                        selectedElement.NegativeEvent.Invoke();
+                    }
+                }
+            }
+
+            //Execute UI element: Positive (Right) Direction Event.
+            else if(Input.GetKey(KeyCode.RightArrow))
+            {
+                //Execute the event once and start counting the hold timer.
+                if(executionInputHoldTimer == 0) selectedElement.PositiveEvent.Invoke();
+                executionInputHoldTimer += Time.unscaledDeltaTime;
+
+                //Switch to continuous execution mode.
+                if (executionInputHoldTimer > 0.3f)
+                {
+                    if (Time.realtimeSinceStartup > executionInputTimer)
+                    {
+                        executionInputTimer = Time.realtimeSinceStartup + 0.03f;
+                        selectedElement.PositiveEvent.Invoke();
+                    }
+                }
+            }
+        }
+
+        else if (selectedElement.elementType == UI_Element_Type.keybinderElement)
+        {
+            //Execute UI element: Single Channel Click Event.
+            if (Input.GetKeyDown(KeyCode.Return) && !isKeybinding) selectedElement.ClickEvent.Invoke();
+        }
+    }
 
 	private void HandleEscapeInput()
 	{
