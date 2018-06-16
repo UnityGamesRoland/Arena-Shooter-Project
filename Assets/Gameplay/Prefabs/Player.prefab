@@ -3020,6 +3020,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 6.8
   dashSpeed: 80
+  keybindings: {fileID: 11400000, guid: 181e8014cfb683f4aa414bfaf07f70c0, type: 2}
   dashParticle: {fileID: 198675837722408406}
   dashSound: {fileID: 8300000, guid: 8dfb6a7180c06444eac9d8471957d94f, type: 3}
   footstepSounds:

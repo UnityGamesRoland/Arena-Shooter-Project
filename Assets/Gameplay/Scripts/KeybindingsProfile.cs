@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "Keybindings Profile", menuName = "Keybindings Profile")]
-public class KeybindingsProfile : ScriptableObject
+public class KeybindingsProfile : SingletonScriptableObject<KeybindingsProfile>
 {
     public KeyCode moveForwardKey = KeyCode.W;
     public KeyCode moveBackwardKey = KeyCode.S;

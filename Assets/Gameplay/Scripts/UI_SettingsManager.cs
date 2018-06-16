@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Audio;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class UI_SettingsManager : MonoBehaviour
 {
@@ -18,13 +19,17 @@ public class UI_SettingsManager : MonoBehaviour
     public Slider musicVolumeSlider;
     public Slider gameplayVolumeSlider;
 
-    private void Awake()
+    private void Start()
     {
         //Should only be called from the splash screen in the menu.
-        InitializeQualitySettings();
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            settings.ClampSettings();
+            InitializeQualitySettings();
+        }
 
         //Since the anti-aliasing is on a post processing layer, it has to be set every time a level loads.
-        ApplyAntiAliasing();
+        ApplyPerLevelSettings();
     }
 
     public void OnEnterGraphicsMenu()
@@ -43,6 +48,11 @@ public class UI_SettingsManager : MonoBehaviour
         masterVolumeSlider.value = settings.masterVolume;
         musicVolumeSlider.value = settings.musicVolume;
         gameplayVolumeSlider.value = settings.gameplayVolume;
+
+        //Update the volume levels.
+        mixer.SetFloat("MasterVolume", Mathf.Lerp(-80f, 0f, settings.masterVolume));
+        mixer.SetFloat("MusicVolume", Mathf.Lerp(-80f, 0f, settings.musicVolume));
+        mixer.SetFloat("GameplayVolume", Mathf.Lerp(-80f, 0f, settings.gameplayVolume));
     }
 
     public void SetTextureQuality(bool isIncrease)
@@ -186,7 +196,8 @@ public class UI_SettingsManager : MonoBehaviour
         settings.masterVolume = masterVolumeSlider.value;
         settings.ClampSettings();
 
-        //ACTUALLY SET VOLUME HERE!!
+        //Update the volume level.
+        mixer.SetFloat("MasterVolume", Mathf.Lerp(-80f, 0f, settings.masterVolume));
     }
 
     public void SetMusicVolumeDirectly()
@@ -195,7 +206,8 @@ public class UI_SettingsManager : MonoBehaviour
         settings.musicVolume = musicVolumeSlider.value;
         settings.ClampSettings();
 
-        //ACTUALLY SET VOLUME HERE!!
+        //Update the volume level.
+        mixer.SetFloat("MusicVolume", Mathf.Lerp(-80f, 0f, settings.musicVolume));
     }
 
     public void SetGameplayVolumeDirectly()
@@ -204,11 +216,17 @@ public class UI_SettingsManager : MonoBehaviour
         settings.gameplayVolume = gameplayVolumeSlider.value;
         settings.ClampSettings();
 
-        //ACTUALLY SET VOLUME HERE!!
+        //Update the volume level.
+        mixer.SetFloat("GameplayVolume", Mathf.Lerp(-80f, 0f, settings.gameplayVolume));
     }
 
-    private void ApplyAntiAliasing()
+    private void ApplyPerLevelSettings()
     {
+        //Update the volume levels.
+        mixer.SetFloat("MasterVolume", Mathf.Lerp(-80f, 0f, settings.masterVolume));
+        mixer.SetFloat("MusicVolume", Mathf.Lerp(-80f, 0f, settings.musicVolume));
+        mixer.SetFloat("GameplayVolume", Mathf.Lerp(-80f, 0f, settings.gameplayVolume));
+
         //Get the post processing layer from the main camera.
         PostProcessLayer postProcess = Camera.main.GetComponent<PostProcessLayer>();
 

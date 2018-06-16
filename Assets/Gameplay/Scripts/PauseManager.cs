@@ -51,8 +51,9 @@ public class PauseManager : MonoBehaviour
         //Adjust the time scale.
         Time.timeScale = 0f;
 
-		//Pause the sounds.
-		AudioListener.pause = true;
+        //Pause the sounds.
+        AudioManager.Instance.TransitionToSnapshot("Paused", 0.05f);
+        AudioListener.pause = true;
 
 		//Initializes the pause menu's UI elements and enables interaction with them.
 		UI_Manager.Instance.interactable = true;
@@ -70,8 +71,9 @@ public class PauseManager : MonoBehaviour
         //Adjust the time scale.
         Time.timeScale = 1f;
 
-		//Resume the sounds.
-		AudioListener.pause = false;
+        //Resume the sounds.
+        AudioManager.Instance.TransitionToSnapshot("Normal", 0.05f);
+        AudioListener.pause = false;
 
 		//Disable the interaction with the UI.
 		UI_Manager.Instance.interactable = false;

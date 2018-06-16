@@ -737,6 +737,7 @@ GameObject:
   - component: {fileID: 516421822}
   - component: {fileID: 516421823}
   - component: {fileID: 516421821}
+  - component: {fileID: 516421824}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -875,6 +876,87 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 0
   glowMaterial: {fileID: 2100000, guid: 8ef3364a03e37a84ebf2e91aeec2a1f3, type: 2}
+--- !u!82 &516421824
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 516421820}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 243124061189490050, guid: 93f0f1a52add1ff4b90f0d2f5bc88895,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: 7a6ac119f8f15934b9b0d1a454fc5124, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1001 &528984543
 Prefab:
   m_ObjectHideFlags: 0
@@ -2445,6 +2527,11 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114638771658432656, guid: 2b55bea71bdf35c4688c70daca8d2657,
+        type: 2}
+      propertyPath: music
+      value: 
+      objectReference: {fileID: 516421824}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2b55bea71bdf35c4688c70daca8d2657, type: 2}
   m_IsPrefabParent: 0

@@ -7,6 +7,42 @@ public static class TP_Utilities
         Vector3 velocity = new Vector3(inputDir.x * moveSpeed, 0f, inputDir.y * moveSpeed);
         return velocity;
     }
+
+    public static int GetAxis(string axis, KeybindingsProfile keybindings)
+    {
+        if(axis == "Horizontal")
+        {
+            if (Input.GetKey(keybindings.moveRightKey)) return 1;
+            else if (Input.GetKey(keybindings.moveLeftKey)) return -1;
+            else return 0;
+        }
+
+        if (axis == "Vertical")
+        {
+            if (Input.GetKey(keybindings.moveForwardKey)) return 1;
+            else if (Input.GetKey(keybindings.moveBackwardKey)) return -1;
+            else return 0;
+        }
+
+        else return 0;
+    }
+
+    public static bool GetAction(string action, KeybindingsProfile keybindings)
+    {
+        if(action == "Shoot")
+        {
+            if (Input.GetKey(keybindings.shootKey)) return true;
+            else return false;
+        }
+
+        if (action == "UsePowerup")
+        {
+            if (Input.GetKeyDown(keybindings.usePowerupKey)) return true;
+            else return false;
+        }
+
+        else return false;
+    }
 }
 
 public struct CharacterStates

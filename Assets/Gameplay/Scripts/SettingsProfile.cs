@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "Settings Profile", menuName = "Settings Profile")]
-public class SettingsProfile : ScriptableObject
+public class SettingsProfile : SingletonScriptableObject<SettingsProfile>
 {
     public int textureQuality = 1;
     public int resolutionScale = 5;

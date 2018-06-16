@@ -8819,7 +8819,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settings: {fileID: 11400000, guid: f302d8dbe9db85b49b092768a375eddc, type: 2}
-  mixer: {fileID: 0}
+  mixer: {fileID: 24100000, guid: 93f0f1a52add1ff4b90f0d2f5bc88895, type: 2}
   textureQualityText: {fileID: 114470044906226246}
   resolutionScaleText: {fileID: 114031735626475312}
   multiSamplingText: {fileID: 114229707313535038}
@@ -9075,6 +9075,7 @@ MonoBehaviour:
     layerObject: {fileID: 0}
     firstElement: {fileID: 0}
   selectedElement: {fileID: 0}
+  pause: {fileID: 0}
 --- !u!114 &114638771658432656
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9716,7 +9717,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114638771658432656}
-        m_MethodName: QuitGame
+        m_MethodName: LoadMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

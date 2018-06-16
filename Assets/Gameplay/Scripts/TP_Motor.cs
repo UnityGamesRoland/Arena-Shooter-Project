@@ -7,6 +7,7 @@ public class TP_Motor : MonoBehaviour
     public float moveSpeed = 5f;
     public float dashSpeed = 50f;
 
+    public KeybindingsProfile keybindings;
     public ParticleSystem dashParticle;
     public AudioClip dashSound;
     public AudioClip[] footstepSounds;
@@ -60,13 +61,13 @@ public class TP_Motor : MonoBehaviour
         if(!pause.isPaused)
         {
             //Get the input direction and normalize it.
-            Vector2 inputDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+            Vector2 inputDir = new Vector2(TP_Utilities.GetAxis("Horizontal", keybindings), TP_Utilities.GetAxis("Vertical", keybindings)).normalized;
 
             //Stop the movement if the player is dead.
             if (player.isDead) inputDir = Vector2.zero;
 
-            //TEMPORARY FEATURE... Dash with shift key.
-            if (Input.GetKeyDown(KeyCode.LeftShift) && !player.isDead) BeginDash(inputDir, 0.06f, 1f);
+            //TEMPORARY FEATURE... Dash with UsePowerup key.
+            if (TP_Utilities.GetAction("UsePowerup", keybindings) && !player.isDead) BeginDash(inputDir, 0.06f, 1f);
 
             //Move the player in the input direction if we are not dashing.
             if (!states.isDashing) Move(inputDir, moveSpeed, false);

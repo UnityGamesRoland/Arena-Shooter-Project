@@ -11,9 +11,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f9e5901c54ac494080e77c84e126c0a, type: 3}
   m_Name: Keybindings Profile
   m_EditorClassIdentifier: 
-  moveForwardKey: 115
-  moveBackwardKey: 0
+  moveForwardKey: 119
+  moveBackwardKey: 115
   moveLeftKey: 97
   moveRightKey: 100
   shootKey: 323
-  usePowerupKey: 32
+  usePowerupKey: 304

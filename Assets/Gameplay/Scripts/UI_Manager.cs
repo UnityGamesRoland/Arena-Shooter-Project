@@ -15,8 +15,8 @@ public class UI_Manager : MonoBehaviour
 {
 	public UI_Layer[] layers;
 
-    [HideInInspector] public bool interactable;
-    [HideInInspector] public bool isKeybinding;
+    public bool interactable;
+    public bool isKeybinding;
     [HideInInspector] public UI_Layer selectedLayer;
 	[HideInInspector] public UI_Element selectedElement;
 
@@ -24,7 +24,7 @@ public class UI_Manager : MonoBehaviour
     private float executionInputTimer;
     private bool controlsGamePause = false;
 
-    private PauseManager pause;
+    public PauseManager pause;
     private UI_SceneManager sceneManager;
 
 	#region Singleton And References
@@ -43,7 +43,9 @@ public class UI_Manager : MonoBehaviour
 		//Check if the UI manager should control the pause manager as well.
 		pause = PauseManager.Instance;
         sceneManager = UI_SceneManager.Instance;
-		if(pause != null) controlsGamePause = true;
+
+		if (pause != null) controlsGamePause = true;
+        if (!controlsGamePause) interactable = true;
 	}
 
 	private void Update()
@@ -71,7 +73,7 @@ public class UI_Manager : MonoBehaviour
         GetExecutionInput();
     }
 
-	private void GetNavigationInput()
+    private void GetNavigationInput()
 	{
 		//Moving to next layer: Below <selectedLayer>
 		if(Input.GetKeyDown(KeyCode.Escape)) HandleEscapeInput();
@@ -88,8 +90,12 @@ public class UI_Manager : MonoBehaviour
 
 	private void GetExecutionInput()
 	{
-		//Check if we can interact with the UI.
-		if(!interactable) return;
+        //Check if we can interact with the UI.
+        if (!interactable)
+        {
+            executionInputHoldTimer = 0;
+            return;
+        }
 
 		if(selectedElement.elementType == UI_Element_Type.buttonElement)
 		{
@@ -234,7 +240,10 @@ public class UI_Manager : MonoBehaviour
 				break;
 			}
 		}
-	}
+
+        //Reset the hold timer.
+        executionInputHoldTimer = 0f;
+    }
 
 	public void MoveToPreviousLayer()
 	{
@@ -292,7 +301,10 @@ public class UI_Manager : MonoBehaviour
 				selectedElement = nextElement;
 				selectedElement.outlineObject.SetActive(true);
 			}
-		}
+
+            //Reset the hold timer.
+            executionInputHoldTimer = 0f;
+        }
 
 		//Selected element not specified.
 		else
@@ -303,7 +315,10 @@ public class UI_Manager : MonoBehaviour
 			//Update the selected element and it's outline object.
 			selectedElement = selectedLayer.firstElement;
 			selectedElement.outlineObject.SetActive(true);
-		}
+
+            //Reset the hold timer.
+            executionInputHoldTimer = 0f;
+        }
 	}
 
 	public void SetSelectedElement(UI_Element newElement)
@@ -314,5 +329,8 @@ public class UI_Manager : MonoBehaviour
 		//Update the selected element and it's outline object.
 		selectedElement = newElement;
 		selectedElement.outlineObject.SetActive(true);
+
+        //Reset the hold timer.
+        executionInputHoldTimer = 0f;
 	}
 }
