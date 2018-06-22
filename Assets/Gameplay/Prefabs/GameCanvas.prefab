@@ -9040,6 +9040,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ffa4ba38a576174b86048f2ddfa7aa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectSound: {fileID: 8300000, guid: 11125b01fe6300444befafba5f880aed, type: 3}
+  submitSound: {fileID: 8300000, guid: c5606307e2f70f84ebeaf2a24d3c9a2d, type: 3}
+  selectVolume: 0.2
+  submitVolume: 0.2
   layers:
   - layerName: (Base) Pause Menu
     layerIndex: 0
@@ -9075,7 +9079,6 @@ MonoBehaviour:
     layerObject: {fileID: 0}
     firstElement: {fileID: 0}
   selectedElement: {fileID: 0}
-  pause: {fileID: 0}
 --- !u!114 &114638771658432656
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9089,6 +9092,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadingScreen: {fileID: 225216833126145362}
   loadType: 0
+  levelSections: []
   isLoading: 0
   isInitialized: 0
 --- !u!114 &114641316067568522
@@ -18132,7 +18136,7 @@ CanvasGroup:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1362534347544932}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0

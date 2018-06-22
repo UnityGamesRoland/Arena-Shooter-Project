@@ -61,16 +61,13 @@ public class TP_Motor : MonoBehaviour
         if(!pause.isPaused)
         {
             //Get the input direction and normalize it.
-            Vector2 inputDir = new Vector2(TP_Utilities.GetAxis("Horizontal", keybindings), TP_Utilities.GetAxis("Vertical", keybindings)).normalized;
+            data.inputDirection = new Vector2(TP_Utilities.GetAxis("Horizontal", keybindings), TP_Utilities.GetAxis("Vertical", keybindings)).normalized;
 
             //Stop the movement if the player is dead.
-            if (player.isDead) inputDir = Vector2.zero;
-
-            //TEMPORARY FEATURE... Dash with UsePowerup key.
-            if (TP_Utilities.GetAction("UsePowerup", keybindings) && !player.isDead) BeginDash(inputDir, 0.06f, 1f);
+            if (player.isDead) data.inputDirection = Vector2.zero;
 
             //Move the player in the input direction if we are not dashing.
-            if (!states.isDashing) Move(inputDir, moveSpeed, false);
+            if (!states.isDashing) Move(data.inputDirection, moveSpeed, false);
 
             //Rotate the player to mouse point.
             RotateBody();
@@ -98,17 +95,20 @@ public class TP_Motor : MonoBehaviour
         anim.AnimateCharacter(moveDir, moveMagnitude);
     }
 
-    public void BeginDash(Vector2 dashDir, float dashLength, float invincibilityDuration)
+    public void BeginDash(float dashLength, float invincibilityDuration)
     {
         //Pass in the direction and length to the dash handler enumerator and start it.
-        StartCoroutine(Dash(dashDir, dashLength, invincibilityDuration));
+        StartCoroutine(Dash(dashLength, invincibilityDuration));
     }
 
-    private IEnumerator Dash(Vector2 dashDir, float dashLength, float invincibilityDuration)
+    
+    private IEnumerator Dash(float dashLength, float invincibilityDuration)
     {
         //Update the dashing state.
         states.isDashing = true;
         player.isInvincible = true;
+
+        Vector2 dashDir = data.inputDirection;
 
         //Use forward direction if no other direction were given.
         if (dashDir.magnitude == 0) dashDir = new Vector2(transform.forward.x, transform.forward.z).normalized;
@@ -167,9 +167,18 @@ public class TP_Motor : MonoBehaviour
             //Get the mouse point.
             data.mousePoint = ray.GetPoint(rayDistance);
 
-            //Get the look rotation and rotate the player to the mouse point.
-            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(data.mousePoint.x, transform.position.y, data.mousePoint.z) - transform.position);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime / 0.025f);
+            if (Time.timeScale != 1)
+            {
+                //Get the look rotation and rotate the player to the mouse point.
+                Quaternion lookRotation = Quaternion.LookRotation(new Vector3(data.mousePoint.x, transform.position.y, data.mousePoint.z) - transform.position);
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime / 0.025f);
+            }
+
+            else
+            {
+                Quaternion lookRotation = Quaternion.LookRotation(new Vector3(data.mousePoint.x, transform.position.y, data.mousePoint.z) - transform.position);
+                transform.rotation = lookRotation;
+            }
         }
     }
 

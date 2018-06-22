@@ -25,6 +25,7 @@ public class UI_Element : MonoBehaviour, IPointerEnterHandler, IPointerClickHand
 	//Callback function for the mouse clicking the UI element.
 	public void OnPointerClick(PointerEventData eventData)
 	{
+        AudioManager.Instance.PlayUISound(UI_Manager.Instance.submitSound, UI_Manager.Instance.submitVolume);
         ClickEvent.Invoke();
 	}
 }

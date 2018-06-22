@@ -2430,6 +2430,48 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1073343912}
   m_Mesh: {fileID: 4300004, guid: 47497ff65889b09458b9cc8b31ce86ef, type: 3}
+--- !u!1001 &1091415518
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4209887022748736, guid: c2ba53d50f7a34747aef0c6478634e81, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4209887022748736, guid: c2ba53d50f7a34747aef0c6478634e81, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4209887022748736, guid: c2ba53d50f7a34747aef0c6478634e81, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4209887022748736, guid: c2ba53d50f7a34747aef0c6478634e81, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4209887022748736, guid: c2ba53d50f7a34747aef0c6478634e81, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4209887022748736, guid: c2ba53d50f7a34747aef0c6478634e81, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4209887022748736, guid: c2ba53d50f7a34747aef0c6478634e81, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4209887022748736, guid: c2ba53d50f7a34747aef0c6478634e81, type: 2}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: c2ba53d50f7a34747aef0c6478634e81, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &1107121620
 Prefab:
   m_ObjectHideFlags: 0
@@ -2527,11 +2569,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114638771658432656, guid: 2b55bea71bdf35c4688c70daca8d2657,
-        type: 2}
-      propertyPath: music
-      value: 
-      objectReference: {fileID: 516421824}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2b55bea71bdf35c4688c70daca8d2657, type: 2}
   m_IsPrefabParent: 0

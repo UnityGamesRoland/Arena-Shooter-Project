@@ -56,4 +56,5 @@ public struct CharacterData
     public CharacterController controller;
     public Vector3 mousePoint;
     public Vector3 moveVelocity;
+    public Vector2 inputDirection;
 }

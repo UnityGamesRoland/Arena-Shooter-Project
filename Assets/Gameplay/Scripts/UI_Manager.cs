@@ -13,10 +13,14 @@ public class UI_Layer
 
 public class UI_Manager : MonoBehaviour
 {
-	public UI_Layer[] layers;
+    public AudioClip selectSound;
+    public AudioClip submitSound;
+    public float selectVolume = 1f;
+    public float submitVolume = 1f;
+    public UI_Layer[] layers;
 
-    public bool interactable;
-    public bool isKeybinding;
+    [HideInInspector] public bool interactable;
+    [HideInInspector] public bool isKeybinding;
     [HideInInspector] public UI_Layer selectedLayer;
 	[HideInInspector] public UI_Element selectedElement;
 
@@ -24,7 +28,7 @@ public class UI_Manager : MonoBehaviour
     private float executionInputTimer;
     private bool controlsGamePause = false;
 
-    public PauseManager pause;
+    private PauseManager pause;
     private UI_SceneManager sceneManager;
 
 	#region Singleton And References
@@ -99,8 +103,12 @@ public class UI_Manager : MonoBehaviour
 
 		if(selectedElement.elementType == UI_Element_Type.buttonElement)
 		{
-			//Execute UI element: Single Channel Click Event.
-			if(Input.GetKeyDown(KeyCode.Return)) selectedElement.ClickEvent.Invoke();
+            //Execute UI element: Single Channel Click Event.
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                AudioManager.Instance.PlayUISound(submitSound, submitVolume);
+                selectedElement.ClickEvent.Invoke();
+            }
 		}
 
 		else if (selectedElement.elementType == UI_Element_Type.selectorElement)
@@ -180,7 +188,8 @@ public class UI_Manager : MonoBehaviour
 				//If the selected layer is not the base layer, descend one layer.
 				if(selectedLayerIndex > 0)
 				{
-					MoveToPreviousLayer();
+                    AudioManager.Instance.PlayUISound(submitSound, submitVolume);
+                    MoveToPreviousLayer();
 					return;
 				}
 
@@ -196,7 +205,7 @@ public class UI_Manager : MonoBehaviour
 			else
 			{
 				//Prevent game from being paused after player died.
-				if(PlayerManager.Instance.isDead) return;
+				if(PlayerManager.Instance.isDead && UI_SceneManager.Instance.isLoading) return;
 
 				//Pause the game and move to base layer.
 				pause.PauseGame();
@@ -210,7 +219,8 @@ public class UI_Manager : MonoBehaviour
 			//If the selected layer is not the base layer, descend one layer.
 			if(selectedLayerIndex > 0)
 			{
-				MoveToPreviousLayer();
+                AudioManager.Instance.PlayUISound(submitSound, submitVolume);
+                MoveToPreviousLayer();
 				return;
 			}
 		}
@@ -287,8 +297,10 @@ public class UI_Manager : MonoBehaviour
 
 	private void SetSelectedElement(bool upMovement)
 	{
-		//Check if there is a selected element that we can start from.
-		if(selectedElement != null)
+        AudioManager.Instance.PlayUISound(selectSound, selectVolume);
+
+        //Check if there is a selected element that we can start from.
+        if (selectedElement != null)
 		{
 			//Get the next UI element based on the given direction.
 			UI_Element nextElement = upMovement ? selectedElement.elementAbove : selectedElement.elementBelow;
@@ -323,11 +335,17 @@ public class UI_Manager : MonoBehaviour
 
 	public void SetSelectedElement(UI_Element newElement)
 	{
-		//Disable the currently selected element's outline object.
-		if(selectedElement != null) selectedElement.outlineObject.SetActive(false);
+        //Disable the currently selected element's outline object.
+        if (selectedElement != null)
+        {
+            if(selectedElement != newElement) AudioManager.Instance.PlayUISound(selectSound, selectVolume);
+            selectedElement.outlineObject.SetActive(false);
+        }
 
-		//Update the selected element and it's outline object.
-		selectedElement = newElement;
+        else AudioManager.Instance.PlayUISound(selectSound, selectVolume);
+
+        //Update the selected element and it's outline object.
+        selectedElement = newElement;
 		selectedElement.outlineObject.SetActive(true);
 
         //Reset the hold timer.

@@ -9,6 +9,8 @@ public class UI_SceneManager : MonoBehaviour
     public enum SceneLoaderType {loopLevels, reloadCurrent}
     public SceneLoaderType loadType;
 
+    public LevelSection[] levelSections;
+
     [HideInInspector] public bool isLoading;
     [HideInInspector] public bool isInitialized;
 
@@ -27,6 +29,9 @@ public class UI_SceneManager : MonoBehaviour
         //Check if the game is loading something.
         if (isLoading) return;
 
+        //Crossfade to section 1's soundtrack.
+        AudioManager.Instance.CrossFadeMusic(AudioManager.Instance.soundtracks[0], 0.7f);
+
         //Start the loading process.
         StartCoroutine(LoadToMenu());
     }
@@ -37,10 +42,21 @@ public class UI_SceneManager : MonoBehaviour
         if (isLoading) return;
 
         //Get the target level index.
-        int targetLevel = SceneManager.GetActiveScene().buildIndex + 1;
+        int currentLevel = SceneManager.GetActiveScene().buildIndex;
+        int targetLevel = currentLevel + 1;
 
         //TEMPORARY FEATURE... Load the first level or reload the current one based on the selected loading type.
-        if (targetLevel > SceneManager.sceneCountInBuildSettings - 1) targetLevel = (loadType == SceneLoaderType.loopLevels) ? 1 : SceneManager.GetActiveScene().buildIndex;
+        if (targetLevel > SceneManager.sceneCountInBuildSettings - 1) targetLevel = (loadType == SceneLoaderType.loopLevels) ? 1 : currentLevel;
+
+        //Execute on new section events.
+        foreach (LevelSection section in levelSections)
+        {
+            if (targetLevel == section.fromLevel)
+            {
+                AudioManager.Instance.CrossFadeMusic(AudioManager.Instance.soundtracks[section.levelSoundtrackIndex], 1.2f);
+                break;
+            }
+        }
 
         //Start the loading process.
         StartCoroutine(LoadNextGameLevel(targetLevel));
@@ -62,7 +78,11 @@ public class UI_SceneManager : MonoBehaviour
 
         //CREATE NEW SAVE PROFILE !!
 
+        //Crossfade to section 1's soundtrack.
+        AudioManager.Instance.CrossFadeMusic(AudioManager.Instance.soundtracks[1], 1.2f);
+
         //Start the loading process.
+        StopAllCoroutines();
         StartCoroutine(LoadLevelFromMenu(1));
     }
 
@@ -188,15 +208,19 @@ public class UI_SceneManager : MonoBehaviour
         //Transition to normal audio.
         AudioManager.Instance.TransitionToSnapshot("Normal", 0.01f);
 
-        //Reset the progress.
-        float progress = 0;
-
         //Enable the loading screen.
-        while (progress < 1)
+        while (loadingScreen.alpha > 0)
         {
-            progress += Time.unscaledDeltaTime / 1.4f;
-            loadingScreen.alpha = Mathf.Lerp(1, 0, progress);
+            loadingScreen.alpha = Mathf.MoveTowards(loadingScreen.alpha, 0f, Time.unscaledDeltaTime / 2.5f);
             yield return null;
         }
     }
+}
+
+[System.Serializable]
+public class LevelSection
+{
+    public string name = "New Section";
+    public int fromLevel = 1;
+    public int levelSoundtrackIndex = 1;
 }

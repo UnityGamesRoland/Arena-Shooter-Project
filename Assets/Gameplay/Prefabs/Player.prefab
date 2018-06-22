@@ -400,6 +400,7 @@ GameObject:
   - component: {fileID: 114626370368918384}
   - component: {fileID: 114970931269882992}
   - component: {fileID: 114751031506534850}
+  - component: {fileID: 114912596135438242}
   - component: {fileID: 82264976122260160}
   - component: {fileID: 81949336047066616}
   m_Layer: 14
@@ -3043,7 +3044,7 @@ MonoBehaviour:
     type: 2}
   muzzleTransform: {fileID: 4282228561921976}
   shootSound: {fileID: 8300000, guid: 359f0aea98291b2469d02e94f126cfd4, type: 3}
-  fireRate: 0.107
+  fireRate: 0.115
   spread: 0.95
 --- !u!114 &114848982248732526
 MonoBehaviour:
@@ -3062,6 +3063,21 @@ MonoBehaviour:
   actionTimer: 0
   isInvincible: 0
   isDead: 0
+--- !u!114 &114912596135438242
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1337727847105184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 206b38795c7b33241bbc11494e26ef4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerupStats: {fileID: 11400000, guid: 071e62ceb26b0ba4eae10872ea8aa7d3, type: 2}
+  currentPowerup: Dash
+  grenadePrefab: {fileID: 114883608521773846, guid: d8e746f3e93d50b41bf25d7a8feee915,
+    type: 2}
 --- !u!114 &114970931269882992
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3930,7 +3946,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 287826297
+  randomSeed: -979034460
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -7342,7 +7358,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 664104720
+  randomSeed: 1856691810
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -10703,7 +10719,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1570813109
+  randomSeed: 616285768
   InitialModule:
     serializedVersion: 3
     enabled: 1

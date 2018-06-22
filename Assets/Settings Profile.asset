@@ -16,8 +16,8 @@ MonoBehaviour:
   multiSampling: 3
   antiAliasing: 2
   vSync: 0
-  masterVolume: 0.93
-  musicVolume: 0.95
+  masterVolume: 0.9
+  musicVolume: 1
   gameplayVolume: 1
   textureQualityStrings:
   - Low
