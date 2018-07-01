@@ -1211,6 +1211,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1956877032963446
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4392735112814240}
+  - component: {fileID: 135193835420775616}
+  m_Layer: 17
+  m_Name: PathfindingBubble
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1961262578899180
 GameObject:
   m_ObjectHideFlags: 1
@@ -1796,6 +1812,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4806228153677958}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4392735112814240
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1956877032963446}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4987045783441308}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4395519725745056
 Transform:
@@ -2407,6 +2436,7 @@ Transform:
   - {fileID: 4134675237754424}
   - {fileID: 4481896203959930}
   - {fileID: 4199558068235342}
+  - {fileID: 4392735112814240}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3076,8 +3106,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerupStats: {fileID: 11400000, guid: 071e62ceb26b0ba4eae10872ea8aa7d3, type: 2}
   currentPowerup: Dash
-  grenadePrefab: {fileID: 114883608521773846, guid: d8e746f3e93d50b41bf25d7a8feee915,
+  explosionEffect: {fileID: 4333269992184842, guid: d35399aa6d77b614eb411678bc412031,
     type: 2}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!114 &114970931269882992
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3090,6 +3123,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 95572193037107646}
+--- !u!135 &135193835420775616
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1956877032963446}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &136067774036369998
 CapsuleCollider:
   m_ObjectHideFlags: 1

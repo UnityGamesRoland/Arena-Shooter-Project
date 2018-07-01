@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 33274349169186380}
   - component: {fileID: 23080350998944668}
   - component: {fileID: 114248005492784332}
-  - component: {fileID: 96426525321658898}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -30,6 +29,35 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1671185815736104
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4014009704362272}
+  - component: {fileID: 96138077710459602}
+  m_Layer: 0
+  m_Name: Trail
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4014009704362272
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1671185815736104}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4801844249582370}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4801844249582370
 Transform:
   m_ObjectHideFlags: 1
@@ -39,7 +67,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.600217, y: 6.2628818, z: -3.8839045}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.38}
-  m_Children: []
+  m_Children:
+  - {fileID: 4014009704362272}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -84,13 +113,13 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1515366019915702}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!96 &96426525321658898
+--- !u!96 &96138077710459602
 TrailRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1515366019915702}
+  m_GameObject: {fileID: 1671185815736104}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -188,12 +217,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73cffa37cc2b67e4288934b8651fc51b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trail: {fileID: 4014009704362272}
   surfaceHitEffect: {fileID: 1231871559596998, guid: 92bacc3e60dc7ff4887a57a28f01bcb6,
     type: 2}
   collisionLayer:
     serializedVersion: 2
-    m_Bits: 311
+    m_Bits: 65847
   bulletHealth: 1
   bulletDamage: 1
   bulletRadius: 0.2
   bulletSpeed: 85
+  bulletOfEnemy: 0

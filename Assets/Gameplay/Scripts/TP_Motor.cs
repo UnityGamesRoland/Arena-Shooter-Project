@@ -108,6 +108,7 @@ public class TP_Motor : MonoBehaviour
         states.isDashing = true;
         player.isInvincible = true;
 
+        //Dash direction.
         Vector2 dashDir = data.inputDirection;
 
         //Use forward direction if no other direction were given.

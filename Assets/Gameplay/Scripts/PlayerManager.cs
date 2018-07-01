@@ -13,7 +13,7 @@ public class PlayerManager : MonoBehaviour
     [HideInInspector] public bool isDead;
 
     private Rigidbody[] ragdollParts;
-    private int health = 1;
+    private int health = 8;
 
     private float invincibilityDuration;
     private float invincibilityTimer;

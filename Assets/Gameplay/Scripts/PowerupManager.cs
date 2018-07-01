@@ -5,7 +5,8 @@ public class PowerupManager : MonoBehaviour
 {
     public PowerupProfile powerupStats;
     public string currentPowerup;
-    public Powerup_Grenade grenadePrefab;
+    public Transform explosionEffect;
+    public LayerMask enemyLayer;
 
     #region Singleton
     public static PowerupManager Instance;
@@ -35,8 +36,17 @@ public class PowerupManager : MonoBehaviour
 
         if(powerup == "Grenade")
         {
-            Powerup_Grenade grenade = Instantiate(grenadePrefab, TP_Motor.Instance.data.mousePoint - Vector3.up * 1.2f, transform.rotation) as Powerup_Grenade;
-            grenade.DetonateGrenade(grenade.gameObject, powerupStats.grenadeDetonateTime, powerupStats.grenadeRadius);
+            Collider[] enemiesInRange = Physics.OverlapSphere(transform.position, powerupStats.explosionRadius, enemyLayer, QueryTriggerInteraction.Collide);
+
+            if (enemiesInRange.Length > 0)
+            {
+                foreach (Collider enemy in enemiesInRange)
+                {
+                    if (enemy.tag == "Enemy") enemy.GetComponent<AI_Runner>().ApplyDamage(12, transform.position);
+                }
+            }
+
+            Instantiate(explosionEffect, transform.position, explosionEffect.rotation);
         }
     }
 

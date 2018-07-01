@@ -2,12 +2,14 @@
 
 public class WeaponBullet : MonoBehaviour
 {
+    public Transform trail;
 	public GameObject surfaceHitEffect;
 	public LayerMask collisionLayer;
     public int bulletHealth = 1;
     public int bulletDamage = 1;
     public float bulletRadius = 0.5f;
     public float bulletSpeed = 70f;
+    public bool bulletOfEnemy = false;
 
 	private void Start()
 	{
@@ -43,11 +45,25 @@ public class WeaponBullet : MonoBehaviour
             if (hit.transform.CompareTag("Enemy"))
             {
                 //Apply damage and spawn hit effect.
-                hit.transform.GetComponent<AI_Runner>().ApplyDamage(bulletDamage, hit.point + hit.normal * 0.15f);
+                AI_Runner runner = hit.transform.GetComponent<AI_Runner>();
+                AI_Shooter shooter = hit.transform.GetComponent<AI_Shooter>();
 
-                //Destroy the bullet.
-                bulletHealth--;
-                if (bulletHealth == 0) Destroy(gameObject);
+                if (runner != null) runner.ApplyDamage(bulletDamage, hit.point + hit.normal * 0.15f);
+                if (shooter != null) shooter.ApplyDamage(bulletDamage, hit.point + hit.normal * 0.15f);
+
+                if(!bulletOfEnemy)
+                {
+                    //Destroy the bullet.
+                    bulletHealth--;
+                    if (bulletHealth == 0) Destroy(gameObject);
+                }
+            }
+
+            //On hit: Player
+            else if (hit.transform.root.CompareTag("Player") && bulletOfEnemy)
+            {
+                //Apply damage and spawn hit effect.
+                PlayerManager.Instance.ApplyDamage(1, transform.position);
             }
 
             //On Hit: Other
@@ -58,7 +74,7 @@ public class WeaponBullet : MonoBehaviour
                 Destroy(effect, 0.75f);
 
                 //Destroy the bullet.
-                Destroy(gameObject);
+                DestroyEnemyBullet();
             }
         }
 	}
@@ -74,8 +90,19 @@ public class WeaponBullet : MonoBehaviour
 			//Loop through the initial hit array.
 			for(int i = 0; i < initialCollisions.Length; i++)
 			{
-                //Apply damage on the current enemy and remove one health from the bullet.
-                initialCollisions[i].GetComponent<AI_Runner>().ApplyDamage(bulletDamage, initialCollisions[i].transform.position);
+                if(!bulletOfEnemy)
+                {
+                    AI_Runner runner = initialCollisions[i].transform.GetComponent<AI_Runner>();
+                    AI_Shooter shooter = initialCollisions[i].transform.GetComponent<AI_Shooter>();
+
+                    if (runner != null) runner.ApplyDamage(bulletDamage, initialCollisions[i].transform.position);
+                    if (shooter != null) shooter.ApplyDamage(bulletDamage, initialCollisions[i].transform.position);
+                }
+
+                else
+                {
+                    PlayerManager.Instance.ApplyDamage(1, transform.position);
+                }
 
                 //Destroy the bullet.
                 bulletHealth --;
@@ -83,6 +110,12 @@ public class WeaponBullet : MonoBehaviour
 			}
 		}
 	}
+
+    private void DestroyEnemyBullet()
+    {
+        trail.SetParent(null, true);
+        Destroy(gameObject);
+    }
 
 	private void OnDrawGizmosSelected()
 	{

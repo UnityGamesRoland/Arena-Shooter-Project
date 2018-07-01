@@ -124,7 +124,7 @@ public class AI_Runner : MonoBehaviour
 
     private IEnumerator UpdateDestination()
     {
-        while(target != null)
+        while(!isDead)
         {
             //Calculate and visualize the target position.
             Vector3 targetPosition = AI_Utilities.GetTargetNextFramePosition(transform.position, target.position, motor.data.controller.velocity);

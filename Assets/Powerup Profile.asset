@@ -11,8 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5761b801b032f8746a459afb24fcdbd7, type: 3}
   m_Name: Powerup Profile
   m_EditorClassIdentifier: 
-  dashLength: 0.06
+  dashLength: 0.05
   invincibilityDuration: 1
-  grenadeRadius: 6
-  grenadeDetonateTime: 1
+  explosionRadius: 4.5
   spawnablePowerups: []
