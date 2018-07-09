@@ -944,6 +944,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1715454501200334
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4488883972020646}
+  - component: {fileID: 33267398207746554}
+  - component: {fileID: 23756762993621388}
+  - component: {fileID: 64030407673719150}
+  m_Layer: 18
+  m_Name: EnergyShield
+  m_TagString: EnergyShield
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1778121422544474
 GameObject:
   m_ObjectHideFlags: 0
@@ -1897,6 +1915,19 @@ Transform:
   m_Father: {fileID: 4362315872074882}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4488883972020646
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1715454501200334}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -0, y: 0, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4987045783441308}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!4 &4492597535616428
 Transform:
   m_ObjectHideFlags: 1
@@ -2437,6 +2468,7 @@ Transform:
   - {fileID: 4481896203959930}
   - {fileID: 4199558068235342}
   - {fileID: 4392735112814240}
+  - {fileID: 4488883972020646}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2557,6 +2589,40 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!23 &23756762993621388
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1715454501200334}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 2100000, guid: e30f9f93b03750e4695c9d020bd55b1f, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!23 &23807275732584298
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -2632,6 +2698,13 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1940808711568846}
   m_Mesh: {fileID: 4300008, guid: 8233791bab55837408982f359042ae45, type: 3}
+--- !u!33 &33267398207746554
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1715454501200334}
+  m_Mesh: {fileID: 4300000, guid: e2474aa1f8071e6459f5f034821592d3, type: 3}
 --- !u!33 &33494573717473326
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -2840,6 +2913,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!64 &64030407673719150
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1715454501200334}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: e2474aa1f8071e6459f5f034821592d3, type: 3}
 --- !u!65 &65437963686797402
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -3104,13 +3191,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 206b38795c7b33241bbc11494e26ef4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerupStats: {fileID: 11400000, guid: 071e62ceb26b0ba4eae10872ea8aa7d3, type: 2}
-  currentPowerup: Dash
-  explosionEffect: {fileID: 4333269992184842, guid: d35399aa6d77b614eb411678bc412031,
-    type: 2}
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 1
+  powerupStats: {fileID: 11400000, guid: a81b674cfc504ff4387ccbbff7e6ffac, type: 2}
+  energyShieldObject: {fileID: 1715454501200334}
+  maxEnergy: 100
+  currentEnergy: 100
 --- !u!114 &114970931269882992
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9136,16 +9220,16 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     separateAxes: 0
-    frequency: 0.5
+    frequency: 1
     damping: 1
-    octaves: 1
+    octaves: 2
     octaveMultiplier: 0.5
     octaveScale: 2
     quality: 1
     scrollSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -9392,7 +9476,7 @@ ParticleSystem:
     sizeAmount:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 0.26
       minScalar: 0
       maxCurve:
         serializedVersion: 2

@@ -17,7 +17,7 @@ public class AI_Shooter : MonoBehaviour
     private float outOfSightTimer = 0f;
     private float spread = 0.8f;
     private float weaponChargeTime = 1f;
-    private int health = 4;
+    private int health = 3;
 
     private bool isInitialized;
     private bool isRagdoll;
@@ -208,32 +208,43 @@ public class AI_Shooter : MonoBehaviour
 
     private IEnumerator HandleShooting()
     {
+        float weaponCharge = 0f;
         float shootTimer = 0f;
 
+        //Initial wait time after spawn.
         yield return new WaitForSeconds(1f);
 
         while(!isDead)
         {
             if (isInLineOfSight)
             {
-                if(Time.time > shootTimer)
+                if (Time.time > shootTimer)
                 {
-                    StartCoroutine(Shoot());
-                    shootTimer = Time.time + 2.5f;
+                    if (!muzzleFlash.isPlaying) muzzleFlash.Play();
+                    weaponCharge += 0.1f;
+
+                    if(weaponCharge >= weaponChargeTime)
+                    {
+                        Shoot();
+                        shootTimer = Time.time + 1.5f;
+                    }
                 }
+
+                else weaponCharge = 0f;
             }
 
-            yield return new WaitForSeconds(0.2f);
+            else
+            {
+                if (muzzleFlash.isPlaying) muzzleFlash.Stop();
+                if (weaponCharge > 0.1f) weaponCharge -= 0.1f;
+            }
+
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
-    private IEnumerator Shoot()
+    private void Shoot()
     {
-        //Play the muzzle flash particle.
-        muzzleFlash.Play();
-
-        yield return new WaitForSeconds(weaponChargeTime);
-
         //Calculate the spread amount.
         Vector2 randomizedSpread = Random.insideUnitCircle * spread;
 
@@ -244,7 +255,7 @@ public class AI_Shooter : MonoBehaviour
         source.pitch = Random.Range(0.97f, 1f);
         source.PlayOneShot(shootSound);
 
-        //Play the muzzle flash particle.
+        //Stop the muzzle flash particle.
         muzzleFlash.Stop();
         muzzleFlash.Clear();
     }
@@ -267,6 +278,10 @@ public class AI_Shooter : MonoBehaviour
         //Spawn the destroy effect at the enemy's position and update the wave manager.
         Instantiate(deathParticle, transform.position, transform.rotation);
         //AI_WaveManager.Instance.killsInCurrentWave++;
+
+        //Stop the muzzle flash particle.
+        muzzleFlash.Stop();
+        muzzleFlash.Clear();
 
         //Wait for the frame to end.
         yield return null;
@@ -326,7 +341,6 @@ public class AI_Shooter : MonoBehaviour
                             if (!requireLineOfSight)
                             {
                                 possibleMovePoints.Add(possibleMovePoint);
-                                Debug.DrawLine(possibleMovePoint, transform.position, Color.white, 0.5f);
                             }
 
                             //POINT WHERE PLAYER HAS TO BE IN SIGHT

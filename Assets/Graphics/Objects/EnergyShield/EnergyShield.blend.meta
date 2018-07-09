@@ -1,43 +1,24 @@
 fileFormatVersion: 2
-guid: f9247408ffdd64349b4f249043617f24
-timeCreated: 1529665702
+guid: e2474aa1f8071e6459f5f034821592d3
+timeCreated: 1531145626
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: ExplosionMarker
-    100002: //RootNode
-    100004: Grenade
-    400000: ExplosionMarker
-    400002: //RootNode
-    400004: Grenade
-    2100000: Grenade_Marker
-    2100002: Grenade_Wire
-    2100004: Grenade_Glow
-    2300000: ExplosionMarker
-    2300002: Grenade
-    3300000: ExplosionMarker
-    3300002: Grenade
-    4300000: ExplosionMarker
-    4300002: Grenade
+    100000: //RootNode
+    400000: //RootNode
+    2100000: Shield
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Shield
     7400000: Default Take
     9500000: //RootNode
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Grenade_Glow
-    second: {fileID: 2100000, guid: ff526df9b51aaaf4fa8f1d6d17749692, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Grenade_Marker
-    second: {fileID: 2100000, guid: bf15f9ab97f38b047a4177476359b0ac, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Grenade_Wire
-    second: {fileID: 2100000, guid: 4672aff9a12941f4eb4161baeac9b0db, type: 2}
+      name: Shield
+    second: {fileID: 2100000, guid: e30f9f93b03750e4695c9d020bd55b1f, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -108,7 +89,7 @@ ModelImporter:
     rootMotionBoneName: 
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
-    hasExtraRoot: 1
+    hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 0

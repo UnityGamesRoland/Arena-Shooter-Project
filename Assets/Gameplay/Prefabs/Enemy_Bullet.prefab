@@ -148,7 +148,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.3
+  m_Time: 0.04
   m_Parameters:
     serializedVersion: 2
     widthMultiplier: 0.2
@@ -163,7 +163,7 @@ TrailRenderer:
         tangentMode: 0
       - serializedVersion: 2
         time: 1
-        value: 0.4970703
+        value: 0
         inSlope: -0.9156221
         outSlope: 0
         tangentMode: 1
@@ -222,9 +222,8 @@ MonoBehaviour:
     type: 2}
   collisionLayer:
     serializedVersion: 2
-    m_Bits: 82231
+    m_Bits: 344065
   bulletHealth: 1
-  bulletDamage: 1
+  bulletDamage: 3
   bulletRadius: 0.2
-  bulletSpeed: 150
-  bulletOfEnemy: 1
+  bulletSpeed: 140

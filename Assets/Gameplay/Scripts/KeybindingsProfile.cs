@@ -8,12 +8,13 @@ public class KeybindingsProfile : SingletonScriptableObject<KeybindingsProfile>
     public KeyCode moveLeftKey = KeyCode.A;
     public KeyCode moveRightKey = KeyCode.D;
     public KeyCode shootKey = KeyCode.Mouse0;
-    public KeyCode usePowerupKey = KeyCode.Space;
+    public KeyCode dashKey = KeyCode.LeftShift;
+    public KeyCode shieldKey = KeyCode.Space;
 
     public void SetAndValidateKeybinding(int keyID, KeyCode newKey)
     {
         //Create an array out of the keybindings.
-        KeyCode[] keybindings = new KeyCode[] { moveForwardKey, moveBackwardKey, moveLeftKey, moveRightKey, shootKey, usePowerupKey };
+        KeyCode[] keybindings = new KeyCode[] { moveForwardKey, moveBackwardKey, moveLeftKey, moveRightKey, shootKey, dashKey, shieldKey };
 
         //Loop through the keybindings.
         for (int i = 0; i < keybindings.Length; i++)
@@ -31,6 +32,7 @@ public class KeybindingsProfile : SingletonScriptableObject<KeybindingsProfile>
         moveLeftKey = keybindings[2];
         moveRightKey = keybindings[3];
         shootKey = keybindings[4];
-        usePowerupKey = keybindings[5];
+        dashKey = keybindings[5];
+        shieldKey = keybindings[6];
     }
 }

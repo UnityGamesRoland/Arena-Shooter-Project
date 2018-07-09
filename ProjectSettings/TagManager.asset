@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - EnergyShield
   layers:
   - Default
   - TransparentFX
@@ -24,7 +25,7 @@ TagManager:
   - Grenade
   - ArenaCover
   - PathfindingBubble
-  - 
+  - EnergyShield
   - 
   - 
   - 

@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Grenade_Glow
-  m_Shader: {fileID: 4800000, guid: 1aff3b17e74233b428f6db62d8c27cb9, type: 3}
+  m_Name: Shield
+  m_Shader: {fileID: 4800000, guid: 41565b6f7e7145e458923d572d2ad051, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -59,20 +59,23 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _EmissionIntensity: 10
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
-    - _Intensity: 60
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _Opcaity: 1
     - _Parallax: 0.02
+    - _RimEmission: 10
+    - _RimPower: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0, g: 0.3936, b: 0.8, a: 1}
+    - _Color: {r: 0, g: 0.6275863, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
+    - _InnerColor: {r: 0, g: 0.66896534, b: 1, a: 0.5}
+    - _RimColor: {r: 0, g: 0.67058825, b: 1, a: 1}

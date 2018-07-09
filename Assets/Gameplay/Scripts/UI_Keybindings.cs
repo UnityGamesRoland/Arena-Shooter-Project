@@ -11,7 +11,8 @@ public class UI_Keybindings : MonoBehaviour
     public Text moveLeftText;
     public Text moveRightText;
     public Text shootText;
-    public Text usePowerupText;
+    public Text dashText;
+    public Text shieldText;
 
     private bool canEnterKeybindingMode = true;
 
@@ -68,7 +69,8 @@ public class UI_Keybindings : MonoBehaviour
         moveLeftText.text = keybindings.moveLeftKey.ToString();
         moveRightText.text = keybindings.moveRightKey.ToString();
         shootText.text = keybindings.shootKey.ToString();
-        usePowerupText.text = keybindings.usePowerupKey.ToString();
+        dashText.text = keybindings.dashKey.ToString();
+        shieldText.text = keybindings.shieldKey.ToString();
     }
 
     private void EmptyOutKeybindingText(int keyID)
@@ -79,7 +81,8 @@ public class UI_Keybindings : MonoBehaviour
         if (keyID == 2) moveLeftText.text = "...";
         if (keyID == 3) moveRightText.text = "...";
         if (keyID == 4) shootText.text = "...";
-        if (keyID == 5) usePowerupText.text = "...";
+        if (keyID == 5) dashText.text = "...";
+        if (keyID == 6) shieldText.text = "...";
     }
 
     private IEnumerator DelayNextKeybindingModeEnter()

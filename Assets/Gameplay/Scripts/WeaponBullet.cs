@@ -9,7 +9,6 @@ public class WeaponBullet : MonoBehaviour
     public int bulletDamage = 1;
     public float bulletRadius = 0.5f;
     public float bulletSpeed = 70f;
-    public bool bulletOfEnemy = false;
 
 	private void Start()
 	{
@@ -51,19 +50,40 @@ public class WeaponBullet : MonoBehaviour
                 if (runner != null) runner.ApplyDamage(bulletDamage, hit.point + hit.normal * 0.15f);
                 if (shooter != null) shooter.ApplyDamage(bulletDamage, hit.point + hit.normal * 0.15f);
 
-                if(!bulletOfEnemy)
+                //Destroy the bullet.
+                bulletHealth--;
+                if (bulletHealth == 0) Destroy(gameObject);
+            }
+
+            //On hit: Energy Shield
+            else if (hit.transform.CompareTag("EnergyShield"))
+            {
+                PowerupManager.Instance.ShieldBlockDamage();
+
+                if (PowerupProfile.Instance.shieldReflectBullets == 1)
+                {
+                    transform.rotation = Quaternion.LookRotation(hit.normal);
+                }
+
+                else
                 {
                     //Destroy the bullet.
                     bulletHealth--;
                     if (bulletHealth == 0) Destroy(gameObject);
                 }
+
+                return;
             }
 
             //On hit: Player
-            else if (hit.transform.root.CompareTag("Player") && bulletOfEnemy)
+            else if (hit.transform.root.CompareTag("Player"))
             {
                 //Apply damage and spawn hit effect.
-                PlayerManager.Instance.ApplyDamage(1, transform.position);
+                PlayerManager.Instance.ApplyDamage(1, hit.point + hit.normal * 0.15f);
+
+                //Destroy the bullet.
+                bulletHealth--;
+                if (bulletHealth == 0) Destroy(gameObject);
             }
 
             //On Hit: Other
@@ -74,7 +94,7 @@ public class WeaponBullet : MonoBehaviour
                 Destroy(effect, 0.75f);
 
                 //Destroy the bullet.
-                DestroyEnemyBullet();
+                Destroy(gameObject);
             }
         }
 	}
@@ -90,32 +110,38 @@ public class WeaponBullet : MonoBehaviour
 			//Loop through the initial hit array.
 			for(int i = 0; i < initialCollisions.Length; i++)
 			{
-                if(!bulletOfEnemy)
+                //On hit: Enemy
+                if (initialCollisions[i].tag == "Enemy")
                 {
                     AI_Runner runner = initialCollisions[i].transform.GetComponent<AI_Runner>();
                     AI_Shooter shooter = initialCollisions[i].transform.GetComponent<AI_Shooter>();
 
                     if (runner != null) runner.ApplyDamage(bulletDamage, initialCollisions[i].transform.position);
                     if (shooter != null) shooter.ApplyDamage(bulletDamage, initialCollisions[i].transform.position);
+
+                    //Destroy the bullet.
+                    bulletHealth--;
+                    if (bulletHealth == 0) Destroy(gameObject);
                 }
 
-                else
+                //On Hit: Player
+                else if (initialCollisions[i].tag == "Player")
                 {
                     PlayerManager.Instance.ApplyDamage(1, transform.position);
+
+                    //Destroy the bullet.
+                    bulletHealth--;
+                    if (bulletHealth == 0) Destroy(gameObject);
                 }
 
-                //Destroy the bullet.
-                bulletHealth --;
-				if(bulletHealth == 0) Destroy(gameObject);
+                //On hit: Arena Cover
+                else
+                {
+                    Destroy(gameObject);
+                }
 			}
 		}
 	}
-
-    private void DestroyEnemyBullet()
-    {
-        trail.SetParent(null, true);
-        Destroy(gameObject);
-    }
 
 	private void OnDrawGizmosSelected()
 	{

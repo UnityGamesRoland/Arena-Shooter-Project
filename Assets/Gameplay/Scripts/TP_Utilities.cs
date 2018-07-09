@@ -35,9 +35,27 @@ public static class TP_Utilities
             else return false;
         }
 
-        if (action == "UsePowerup")
+        if (action == "Dash")
         {
-            if (Input.GetKeyDown(keybindings.usePowerupKey)) return true;
+            if (Input.GetKeyDown(keybindings.dashKey)) return true;
+            else return false;
+        }
+
+        if (action == "Dash")
+        {
+            if (Input.GetKeyDown(keybindings.dashKey)) return true;
+            else return false;
+        }
+
+        if (action == "ActivateShield")
+        {
+            if (Input.GetKeyDown(keybindings.shieldKey)) return true;
+            else return false;
+        }
+
+        if (action == "DeactivateShield")
+        {
+            if (Input.GetKeyUp(keybindings.shieldKey)) return true;
             else return false;
         }
 
