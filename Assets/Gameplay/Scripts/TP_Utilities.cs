@@ -67,6 +67,7 @@ public struct CharacterStates
 {
     public bool isMoving;
     public bool isDashing;
+    public bool enumeratingDash;
 }
 
 public struct CharacterData

@@ -23,11 +23,21 @@ public class PowerupManager : MonoBehaviour
 
     private void Update()
     {
-        UpdateEnergy();
-        GetAbilityInput();
-        HandleEnergyShield();
+        if(!PlayerManager.Instance.isDead)
+        {
+            UpdateEnergy();
+            GetAbilityInput();
+            HandleEnergyShield();
 
-        UI_GameDisplay.Instance.UpdateEnergySlider(currentEnergy / maxEnergy);
+            UI_GameDisplay.Instance.UpdateEnergySlider(currentEnergy / maxEnergy);
+            return;
+        }
+
+        if (isShielded)
+        {
+            energyShieldObject.SetActive(false);
+            isShielded = false;
+        }
     }
 
     private void UpdateEnergy()
@@ -47,7 +57,7 @@ public class PowerupManager : MonoBehaviour
 
     private void GetAbilityInput()
     {
-        if (TP_Utilities.GetAction("Dash", KeybindingsProfile.Instance) && !PlayerManager.Instance.isDead)
+        if (TP_Utilities.GetAction("Dash", KeybindingsProfile.Instance))
         {
             if (currentEnergy >= powerupStats.dashEnergyConsumption)
             {
@@ -60,7 +70,7 @@ public class PowerupManager : MonoBehaviour
             }
         }
 
-        if (TP_Utilities.GetAction("ActivateShield", KeybindingsProfile.Instance) && !PlayerManager.Instance.isDead)
+        if (TP_Utilities.GetAction("ActivateShield", KeybindingsProfile.Instance))
         {
             if (currentEnergy >= powerupStats.shieldActivationEnergyRequirement)
             {
@@ -71,7 +81,6 @@ public class PowerupManager : MonoBehaviour
 
         if (TP_Utilities.GetAction("DeactivateShield", KeybindingsProfile.Instance))
         {
-            energyShieldObject.SetActive(false);
             isShielded = false;
             energyRegenTimer = Time.time + 0.3f;
         }
@@ -79,19 +88,24 @@ public class PowerupManager : MonoBehaviour
 
     private void HandleEnergyShield()
     {
-        if (currentEnergy < powerupStats.shieldMaintenanceEnergyConsumption || PlayerManager.Instance.isDead) isShielded = false;
-
         if (isShielded)
         {
+            energyShieldObject.transform.localScale = Vector3.Lerp(energyShieldObject.transform.localScale, Vector3.one, Time.deltaTime * 10f);
+
             currentEnergy -= Time.deltaTime * powerupStats.shieldMaintenanceEnergyConsumption;
             currentEnergy = Mathf.Clamp(currentEnergy, 0f, maxEnergy);
 
             if(currentEnergy == 0)
             {
-                energyShieldObject.SetActive(false);
                 energyRegenTimer = Time.time + 0.6f;
                 isShielded = false;
             }
+        }
+
+        else
+        {
+            energyShieldObject.transform.localScale = Vector3.Lerp(energyShieldObject.transform.localScale, Vector3.one * 0.5f, Time.deltaTime * 10f);
+            if (energyShieldObject.transform.localScale.x < 0.58f) energyShieldObject.SetActive(false);
         }
     }
 

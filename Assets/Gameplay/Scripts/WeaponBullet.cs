@@ -2,9 +2,9 @@
 
 public class WeaponBullet : MonoBehaviour
 {
-    public Transform trail;
 	public GameObject surfaceHitEffect;
-	public LayerMask collisionLayer;
+    public GameObject enemyHitEffect;
+    public LayerMask collisionLayer;
     public int bulletHealth = 1;
     public int bulletDamage = 1;
     public float bulletRadius = 0.5f;
@@ -50,6 +50,8 @@ public class WeaponBullet : MonoBehaviour
                 if (runner != null) runner.ApplyDamage(bulletDamage, hit.point + hit.normal * 0.15f);
                 if (shooter != null) shooter.ApplyDamage(bulletDamage, hit.point + hit.normal * 0.15f);
 
+                Instantiate(enemyHitEffect, hit.point, Quaternion.LookRotation(hit.normal));
+
                 //Destroy the bullet.
                 bulletHealth--;
                 if (bulletHealth == 0) Destroy(gameObject);
@@ -60,10 +62,7 @@ public class WeaponBullet : MonoBehaviour
             {
                 PowerupManager.Instance.ShieldBlockDamage();
 
-                if (PowerupProfile.Instance.shieldReflectBullets == 1)
-                {
-                    transform.rotation = Quaternion.LookRotation(hit.normal);
-                }
+                if (PowerupProfile.Instance.shieldReflectBullets == 1) transform.rotation = Quaternion.LookRotation(hit.normal);
 
                 else
                 {

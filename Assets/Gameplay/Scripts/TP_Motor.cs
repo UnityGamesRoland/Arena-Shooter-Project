@@ -106,6 +106,7 @@ public class TP_Motor : MonoBehaviour
     {
         //Update the dashing state.
         states.isDashing = true;
+        states.enumeratingDash = true;
         player.isInvincible = true;
 
         //Dash direction.
@@ -150,6 +151,7 @@ public class TP_Motor : MonoBehaviour
 
         //Disable the dash FX after a bit of delay to let it catch up with the position.
         yield return new WaitForSeconds(0.08f);
+        states.enumeratingDash = false;
         dashParticle.Stop();
     }
 

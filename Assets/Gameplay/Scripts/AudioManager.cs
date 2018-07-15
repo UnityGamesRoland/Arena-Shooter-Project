@@ -8,8 +8,6 @@ public class AudioManager : MonoBehaviour
     public AudioMixerGroup musicMixerGroup;
     public Soundtrack[] soundtracks;
 
-    [HideInInspector] public bool isChangingMusicVolume;
-
     #region Singleton
     public static AudioManager Instance;
     private void Awake()
@@ -82,8 +80,6 @@ public class AudioManager : MonoBehaviour
         float currentSourceVolume = currentSource.volume;
         float progress = 0f;
 
-        isChangingMusicVolume = true;
-
         while (progress < 1)
         {
             progress += Time.unscaledDeltaTime / fadeTime;
@@ -93,8 +89,6 @@ public class AudioManager : MonoBehaviour
 
             yield return null;
         }
-
-        isChangingMusicVolume = false;
 
         Destroy(currentSource);
     }
