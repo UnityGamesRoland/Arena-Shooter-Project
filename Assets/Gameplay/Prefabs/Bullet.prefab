@@ -119,7 +119,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.04
+  m_Time: 0.035
   m_Parameters:
     serializedVersion: 2
     widthMultiplier: 0.2
@@ -198,4 +198,4 @@ MonoBehaviour:
   bulletHealth: 1
   bulletDamage: 1
   bulletRadius: 0.2
-  bulletSpeed: 85
+  bulletSpeed: 100

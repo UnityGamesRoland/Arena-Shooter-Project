@@ -102,6 +102,6 @@ public class PlayerManager : MonoBehaviour
         yield return new WaitForSeconds(1.4f);
 
         //Restart the level.
-        UI_SceneManager.Instance.RestartLevel();
+        LevelManager.Instance.LoadLevel("Restart");
     }
 }

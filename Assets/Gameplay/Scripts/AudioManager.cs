@@ -74,7 +74,7 @@ public class AudioManager : MonoBehaviour
         newSource.ignoreListenerPause = true;
         newSource.playOnAwake = false;
         newSource.loop = true;
-        
+
         newSource.Play();
 
         float currentSourceVolume = currentSource.volume;

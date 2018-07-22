@@ -48,6 +48,6 @@ public class ArenaManager : MonoBehaviour
 
         //Load the next level after a bit of delay.
         yield return new WaitForSeconds(0.7f);
-        UI_SceneManager.Instance.LoadNextLevel();
+        LevelManager.Instance.LoadLevel("Next");
     }
 }

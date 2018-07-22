@@ -5,7 +5,9 @@ using System.Collections;
 public class LevelManager : MonoBehaviour
 {
     public CanvasGroup loadingScreen;
+    public LevelSection[] levelSections;
 
+    [HideInInspector] public int currentSceneIndex;
     [HideInInspector] public bool isLoading;
     [HideInInspector] public bool isInitialized;
 
@@ -27,7 +29,6 @@ public class LevelManager : MonoBehaviour
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        Debug.Log("Assigned");
     }
 
     private void OnDisable()
@@ -37,29 +38,41 @@ public class LevelManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        currentSceneIndex = scene.buildIndex;
         StartCoroutine(InitializeLevel());
     }
     #endregion
 
-    private void LoadLevel(string mode)
+    public void LoadLevel(string mode)
     {
         if (isLoading) return;
 
-        int currentLevel = SceneManager.GetActiveScene().buildIndex;
+        int currentLevel = currentSceneIndex;
         int targetLevel = -1;
 
-        if(mode == "Menu") targetLevel = 0;
-        if(mode == "Next") targetLevel = currentLevel + 1;
-        if (mode == "Reload") targetLevel = currentLevel;
+        if (mode == "New") targetLevel = 1;
+        if (mode == "Menu") targetLevel = 0;
+        if (mode == "Next") targetLevel = currentLevel + 1;
+        if (mode == "Restart") targetLevel = currentLevel;
 
-        //Temporary feature...
-        if (targetLevel > SceneManager.sceneCountInBuildSettings - 1) targetLevel = 1;
-
-        //Replace with soundtrack manager!!!
-        if(currentLevel != targetLevel)
+        //Temporary feature... Level looping.
+        if (targetLevel > SceneManager.sceneCountInBuildSettings - 1)
         {
-            if(targetLevel == 0) AudioManager.Instance.CrossFadeMusic(AudioManager.Instance.soundtracks[0], 1.2f);
-            else AudioManager.Instance.CrossFadeMusic(AudioManager.Instance.soundtracks[1], 1.2f);
+            targetLevel = 1;
+            StartCoroutine(LoadLevel(targetLevel));
+            return;
+        }
+
+        if (currentLevel != targetLevel)
+        {
+            for (int i = 0; i < levelSections.Length; i++)
+            {
+                if(levelSections[i].fromLevel == targetLevel)
+                {
+                    AudioManager.Instance.CrossFadeMusic(AudioManager.Instance.soundtracks[levelSections[i].levelSoundtrackIndex], 1.2f);
+                    break;
+                }
+            }
         }
 
         StartCoroutine(LoadLevel(targetLevel));
@@ -73,7 +86,7 @@ public class LevelManager : MonoBehaviour
 
         isInitialized = true;
 
-        AudioManager.Instance.TransitionToSnapshot("Normal", 1.3f);
+        AudioManager.Instance.TransitionToSnapshot("Normal", 0.2f);
 
         while (loadingScreen.alpha > 0)
         {
@@ -84,10 +97,7 @@ public class LevelManager : MonoBehaviour
 
     private IEnumerator LoadLevel(int sceneIndex)
     {
-        isLoading = true;
-        isInitialized = false;
-
-        AudioManager.Instance.TransitionToSnapshot("Paused", 0.8f);
+        AudioManager.Instance.TransitionToSnapshot("Paused", 0.2f);
 
         while (loadingScreen.alpha < 1)
         {
@@ -95,6 +105,17 @@ public class LevelManager : MonoBehaviour
             yield return null;
         }
 
+        isLoading = true;
+        isInitialized = false;
+
         SceneManager.LoadSceneAsync(sceneIndex);
     }
+}
+
+[System.Serializable]
+public class LevelSection
+{
+    public string name = "New Section";
+    public int fromLevel = 1;
+    public int levelSoundtrackIndex = 1;
 }

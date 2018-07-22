@@ -29,7 +29,7 @@ public class UI_Manager : MonoBehaviour
     private bool controlsGamePause = false;
 
     private PauseManager pause;
-    private UI_SceneManager sceneManager;
+    private LevelManager levelManager;
 
 	#region Singleton And References
 	public static UI_Manager Instance {get; private set;}
@@ -46,7 +46,7 @@ public class UI_Manager : MonoBehaviour
 	{
 		//Check if the UI manager should control the pause manager as well.
 		pause = PauseManager.Instance;
-        sceneManager = UI_SceneManager.Instance;
+        levelManager = LevelManager.Instance;
 
 		if (pause != null) controlsGamePause = true;
         if (!controlsGamePause) interactable = true;
@@ -55,7 +55,7 @@ public class UI_Manager : MonoBehaviour
 	private void Update()
 	{
         //Return if we are initializing or loading a level.
-        if (!sceneManager.isInitialized || sceneManager.isLoading) return;
+        if (!levelManager.isInitialized || levelManager.isLoading) return;
 
         //Check if the keybinder mode is active.
         if(isKeybinding)
@@ -205,7 +205,7 @@ public class UI_Manager : MonoBehaviour
 			else
 			{
 				//Prevent game from being paused after player died.
-				if(PlayerManager.Instance.isDead && UI_SceneManager.Instance.isLoading) return;
+				if(PlayerManager.Instance.isDead && levelManager.isLoading) return;
 
 				//Pause the game and move to base layer.
 				pause.PauseGame();

@@ -22,7 +22,7 @@ public class TP_Motor : MonoBehaviour
     private PlayerManager player;
     private PauseManager pause;
     private TP_Animations anim;
-    private UI_SceneManager sceneManager;
+    private LevelManager levelManager;
 
     #region Singleton and References
     public static TP_Motor Instance { get; private set; }
@@ -40,7 +40,7 @@ public class TP_Motor : MonoBehaviour
         player = PlayerManager.Instance;
         anim = TP_Animations.Instance;
         pause = PauseManager.Instance;
-        sceneManager = UI_SceneManager.Instance;
+        levelManager = LevelManager.Instance;
 
         //Create a virtual plane for the rotation.
         rotationPlane = new Plane(Vector3.up, Vector3.up * (transform.position.y + 0.465f));
@@ -55,7 +55,7 @@ public class TP_Motor : MonoBehaviour
     private void Update()
     {
         //Check if the scene has been initialized.
-        if (!sceneManager.isInitialized) return;
+        if (!levelManager.isInitialized) return;
 
         //Check if the game is paused.
         if(!pause.isPaused)
@@ -199,7 +199,7 @@ public class TP_Motor : MonoBehaviour
     private void OnGUI()
     {
         //Check if the crosshair should be displayed.
-        if (!sceneManager.isInitialized || sceneManager.isLoading || pause.isPaused) return;
+        if (!levelManager.isInitialized || levelManager.isLoading || pause.isPaused) return;
 
         //Calculate the crosshair's position.
         Vector2 screenPosition = Camera.main.WorldToScreenPoint(data.mousePoint);

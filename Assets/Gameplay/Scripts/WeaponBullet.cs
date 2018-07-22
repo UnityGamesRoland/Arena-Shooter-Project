@@ -10,10 +10,16 @@ public class WeaponBullet : MonoBehaviour
     public float bulletRadius = 0.5f;
     public float bulletSpeed = 70f;
 
+    private Vector3 moveDirectionDeviance;
+
 	private void Start()
 	{
-		//In case the bullet doesn't hit anything, destroy it a few seconds after it spawned.
-		Destroy(gameObject, 0.8f);
+        //Calculate the direction deviance.
+        moveDirectionDeviance = TP_Motor.Instance.data.moveVelocity * Time.deltaTime;
+        moveDirectionDeviance = TP_Motor.Instance.transform.InverseTransformDirection(moveDirectionDeviance);
+
+        //In case the bullet doesn't hit anything, destroy it a few seconds after it spawned.
+        Destroy(gameObject, 0.8f);
 
 		//Check if the bullet spawns inside an enemy.
 		CheckInitialHit();
@@ -28,13 +34,13 @@ public class WeaponBullet : MonoBehaviour
 		CheckHit(moveDistance);
 
 		//Move the bullet forward every frame.
-		transform.Translate(Vector3.forward * moveDistance);
+		transform.Translate(moveDirectionDeviance + Vector3.forward * moveDistance);
 	}
 
 	private void CheckHit(float moveDistance)
 	{
 		//Setup a forward ray.
-		Ray ray = new Ray(transform.position, transform.forward);
+		Ray ray = new Ray(transform.position, moveDirectionDeviance + transform.forward);
 		RaycastHit hit;
 
 		//Check if the ray hits something.

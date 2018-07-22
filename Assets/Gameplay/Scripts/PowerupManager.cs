@@ -81,8 +81,11 @@ public class PowerupManager : MonoBehaviour
 
         if (TP_Utilities.GetAction("DeactivateShield", KeybindingsProfile.Instance))
         {
-            isShielded = false;
-            energyRegenTimer = Time.time + 0.3f;
+            if(isShielded)
+            {
+                energyRegenTimer = Time.time + 0.3f;
+                isShielded = false;
+            }
         }
     }
 

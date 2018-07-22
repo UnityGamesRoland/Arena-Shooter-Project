@@ -40,9 +40,6 @@ public class PauseManager : MonoBehaviour
 		//IMPORTANT! Since dash particle is fucked, it has to be paused before time scale gets set to prevent memory leak.
 		//player.dashParticle.Pause();
 
-		//Update the paused state.
-		isPaused = true;
-
         //Show the cursor.
         cursorStateBeforePause = Cursor.visible;
         Cursor.lockState = CursorLockMode.Confined;
@@ -57,13 +54,13 @@ public class PauseManager : MonoBehaviour
 
 		//Initializes the pause menu's UI elements and enables interaction with them.
 		UI_Manager.Instance.interactable = true;
-	}
+
+        //Update the paused state.
+        isPaused = true;
+    }
 
 	public void ContinueGame()
 	{
-		//Update the paused state and delay the next pause by a few seconds.
-		isPaused = false;
-
         //Show the cursor.
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = cursorStateBeforePause;
@@ -71,15 +68,18 @@ public class PauseManager : MonoBehaviour
         //Adjust the time scale.
         Time.timeScale = 1f;
 
-        //Resume the sounds.
-        AudioManager.Instance.TransitionToSnapshot("Normal", 0.05f);
+        //If the game was paused (state update happens at the end of this function) reset to normal snapshot.
+        if(isPaused) AudioManager.Instance.TransitionToSnapshot("Normal", 0.05f);
         AudioListener.pause = false;
 
 		//Disable the interaction with the UI.
 		UI_Manager.Instance.interactable = false;
 
-		//IMPORTANT! Since the dashing particle is paused, check if we are dashing and restart/clear the particles.
-		//if(motor.passive.isDashing) player.dashParticle.Play();
-		//else player.dashParticle.Clear();
-	}
+        //Update the paused state and delay the next pause by a few seconds.
+        isPaused = false;
+
+        //IMPORTANT! Since the dashing particle is paused, check if we are dashing and restart/clear the particles.
+        //if(motor.passive.isDashing) player.dashParticle.Play();
+        //else player.dashParticle.Clear();
+    }
 }

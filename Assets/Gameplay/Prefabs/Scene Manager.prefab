@@ -151,6 +151,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadingScreen: {fileID: 225807323672885350}
+  levelSections:
+  - name: Menu
+    fromLevel: 0
+    levelSoundtrackIndex: 0
+  - name: Section 1
+    fromLevel: 1
+    levelSoundtrackIndex: 1
   isLoading: 0
   isInitialized: 0
 --- !u!222 &222388697858532094
