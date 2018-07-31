@@ -100,7 +100,6 @@ public class TP_Motor : MonoBehaviour
         //Pass in the direction and length to the dash handler enumerator and start it.
         StartCoroutine(Dash(dashLength, invincibilityDuration));
     }
-
     
     private IEnumerator Dash(float dashLength, float invincibilityDuration)
     {

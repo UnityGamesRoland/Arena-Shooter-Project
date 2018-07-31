@@ -66,9 +66,9 @@ public class WeaponBullet : MonoBehaviour
             //On hit: Energy Shield
             else if (hit.transform.CompareTag("EnergyShield"))
             {
-                PowerupManager.Instance.ShieldBlockDamage();
+                AbilityManager.Instance.ShieldBlockDamage();
 
-                if (PowerupProfile.Instance.shieldReflectBullets == 1) transform.rotation = Quaternion.LookRotation(hit.normal);
+                if (AbilityProfile.Instance.shieldReflectBullets == 1) transform.rotation = Quaternion.LookRotation(hit.normal);
 
                 else
                 {

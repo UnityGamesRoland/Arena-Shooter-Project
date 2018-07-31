@@ -88,11 +88,18 @@ public class PlayerManager : MonoBehaviour
         isDead = true;
         TP_Animations.Instance.animator.enabled = false;
 
+        if (AbilityManager.Instance.isShielded)
+        {
+            AbilityManager.Instance.energyShieldObject.SetActive(false);
+            AbilityManager.Instance.isShielded = false;
+        }
+
         //Enable physincs on the ragdoll parts.
         foreach (Rigidbody body in ragdollParts) body.isKinematic = false;
 
-        //Apply an impulse on the ragdoll and unparent the rifle.
+        //Apply an impulse on the ragdoll.
         ragdollParts[0].AddExplosionForce(240, hitPoint, 1, 0.3f, ForceMode.Impulse);
+
         ragdollParts[ragdollParts.Length - 1].transform.parent = null;
 
         //Play the death particle.

@@ -194,7 +194,7 @@ MonoBehaviour:
     type: 2}
   collisionLayer:
     serializedVersion: 2
-    m_Bits: 344065
+    m_Bits: 81921
   bulletHealth: 1
   bulletDamage: 1
   bulletRadius: 0.2

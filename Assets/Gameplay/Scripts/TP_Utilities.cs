@@ -41,12 +41,6 @@ public static class TP_Utilities
             else return false;
         }
 
-        if (action == "Dash")
-        {
-            if (Input.GetKeyDown(keybindings.dashKey)) return true;
-            else return false;
-        }
-
         if (action == "ActivateShield")
         {
             if (Input.GetKeyDown(keybindings.shieldKey)) return true;
@@ -56,6 +50,12 @@ public static class TP_Utilities
         if (action == "DeactivateShield")
         {
             if (Input.GetKeyUp(keybindings.shieldKey)) return true;
+            else return false;
+        }
+
+        if(action == "SpawnOrbs")
+        {
+            if (Input.GetKeyDown(keybindings.orbKey)) return true;
             else return false;
         }
 
