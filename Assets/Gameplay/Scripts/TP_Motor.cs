@@ -64,7 +64,7 @@ public class TP_Motor : MonoBehaviour
             data.inputDirection = new Vector2(TP_Utilities.GetAxis("Horizontal", keybindings), TP_Utilities.GetAxis("Vertical", keybindings)).normalized;
 
             //Stop the movement if the player is dead.
-            if (player.isDead) data.inputDirection = Vector2.zero;
+            if (player.isDead || anim.animator.applyRootMotion) data.inputDirection = Vector2.zero;
 
             //Move the player in the input direction if we are not dashing.
             if (!states.isDashing) Move(data.inputDirection, moveSpeed, false);
@@ -169,17 +169,20 @@ public class TP_Motor : MonoBehaviour
             //Get the mouse point.
             data.mousePoint = ray.GetPoint(rayDistance);
 
-            if (Time.timeScale != 1)
+            if(!anim.animator.applyRootMotion)
             {
-                //Get the look rotation and rotate the player to the mouse point.
-                Quaternion lookRotation = Quaternion.LookRotation(new Vector3(data.mousePoint.x, transform.position.y, data.mousePoint.z) - transform.position);
-                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime / 0.025f);
-            }
+                if (Time.timeScale != 1)
+                {
+                    //Get the look rotation and rotate the player to the mouse point.
+                    Quaternion lookRotation = Quaternion.LookRotation(new Vector3(data.mousePoint.x, transform.position.y, data.mousePoint.z) - transform.position);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime / 0.025f);
+                }
 
-            else
-            {
-                Quaternion lookRotation = Quaternion.LookRotation(new Vector3(data.mousePoint.x, transform.position.y, data.mousePoint.z) - transform.position);
-                transform.rotation = lookRotation;
+                else
+                {
+                    Quaternion lookRotation = Quaternion.LookRotation(new Vector3(data.mousePoint.x, transform.position.y, data.mousePoint.z) - transform.position);
+                    transform.rotation = lookRotation;
+                }
             }
         }
     }
